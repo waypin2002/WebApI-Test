@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="well" id="Div1">
+            <h3>Controller 送出資料</h3>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="well" id="Div2">
+            <h3>WebApi 送出資料</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+        Go();
+    });
+
+    function Go() {
+
+        $.ajax({
+            type: 'POST',
+            url: '/test2/getdata',
+            data: 'input=aaa',
+            error: function (xhr) {
+                alert('Ajax request 發生錯誤');
+            },
+            success: function (response) {
+                //Controller send
+                $('#Div1').append(response);
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/test1/getData',
+            error: function (xhr) {
+                alert('Ajax request error');
+            },
+            success: function (msg) {
+                //webapi send
+                $('#Div2').append(msg);
+            }
+        });
+    }
+
+</script>
+
